@@ -15,24 +15,24 @@ namespace ScreenShotChanges
         /// Creates an Image object containing a screen shot of the entire desktop
         /// </summary>
         /// <returns></returns>
-        public Bitmap CaptureScreen()
+        public Bitmap CaptureScreen(int width,int height)
         {
-            return CaptureWindow(User32.GetDesktopWindow());
+            return CaptureWindow(User32.GetDesktopWindow(), width, height);
         }
         /// <summary>
         /// Creates an Image object containing a screen shot of a specific window
         /// </summary>
         /// <param name="handle">The handle to the window. (In windows forms, this is obtained by the Handle property)</param>
         /// <returns></returns>
-        public Bitmap CaptureWindow(IntPtr handle)
+        public Bitmap CaptureWindow(IntPtr handle, int width, int height)
         {
             // get te hDC of the target window
             IntPtr hdcSrc = User32.GetWindowDC(handle);
             // get the size
             User32.RECT windowRect = new User32.RECT();
             User32.GetWindowRect(handle, ref windowRect);
-            int width = windowRect.right - windowRect.left;
-            int height = windowRect.bottom - windowRect.top;
+            //int width = windowRect.right - windowRect.left;
+            //int height = windowRect.bottom - windowRect.top;
             // create a device context we can copy to
             IntPtr hdcDest = GDI32.CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,
@@ -59,21 +59,21 @@ namespace ScreenShotChanges
         /// <param name="handle"></param>
         /// <param name="filename"></param>
         /// <param name="format"></param>
-        public void CaptureWindowToFile(IntPtr handle, string filename, ImageFormat format)
-        {
-            Bitmap img = CaptureWindow(handle);
-            img.Save(filename, format);
-        }
+        //public void CaptureWindowToFile(IntPtr handle, string filename, ImageFormat format)
+        //{
+        //    Bitmap img = CaptureWindow(handle);
+        //    img.Save(filename, format);
+        //}
         /// <summary>
         /// Captures a screen shot of the entire desktop, and saves it to a file
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="format"></param>
-        public void CaptureScreenToFile(string filename, ImageFormat format)
-        {
-            Bitmap img = CaptureScreen();
-            img.Save(filename, format);
-        }
+        //public void CaptureScreenToFile(string filename, ImageFormat format)
+        //{
+        //    Bitmap img = CaptureScreen();
+        //    img.Save(filename, format);
+        //}
 
         /// <summary>
         /// Helper class containing Gdi32 API functions
